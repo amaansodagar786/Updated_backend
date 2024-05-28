@@ -1122,21 +1122,10 @@ app.post('/forgotpassword', async (req, res) => {
 
     const existingUser = await User.findOne({ email });
 
-
-
-
-
-
-
     if (!existingUser) {
       return res.json({ success: false, error: 'User not found with the provided email' });
     }
 
-
-    console.log(existingUser.password);
-    // const pass = await bcrypt.hash(existingUser.password, 10);
-    const pass = await bcrypt.hash(existingUser.password, 10);
-    console.log(pass);
 
 
     // Create a Nodemailer transporter
@@ -1160,6 +1149,8 @@ app.post('/forgotpassword', async (req, res) => {
         <p>Hello ${name}</p>
         <p>We know You Forgot your password</p>
         <p> So here Your Password changed link <p>
+        <a href="https://e-commerce-vert-iota.vercel.app/forgotpassword"> click here</a> 
+
         
  
       `,
