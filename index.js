@@ -946,77 +946,7 @@ app.post('/update-account-data', async (req, res) => {
 // });
 
 
-app.post('/forgotpass', async (req, res) => {
-  const { name, email } = req.body;
-  console.log(name)
-  console.log(email)
 
-  try {
-
-    const existingUser = await User.findOne({ email });
-
-
-
-
-
-
-
-    if (!existingUser) {
-      return res.json({ success: false, error: 'User not found with the provided email' });
-    }
-
-
-    console.log(existingUser.password);
-    // const pass = await bcrypt.hash(existingUser.password, 10);
-    const pass = await bcrypt.hash(existingUser.password, 10);
-    console.log(pass);
-
-
-    // Create a Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-
-
-
-    // Define email options
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Know Your Password Dude',
-      html: `
-        <p>Hello ${name}</p>
-        <p>We know You Forgot your password</p>
-        <p> So here Your Password <p>
-        <p> Enjoy  <p>
- 
-      `,
-
-
-    };
-
-
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
-    res.json({ success: true, message: 'Email sent successfully' });
-  }
-
-
-
-
-  catch (error) {
-    console.error('Error during registration:', error);
-
-    res.json({ success: false, error: 'Internal Server Error' });
-  }
-
-});
 
 
 app.post('/orderdetails', async (req, res) => {
@@ -1182,6 +1112,101 @@ app.get('/trackinfo', async (req, res) => {
 });
 
 
+
+app.post('/forgotpassword', async (req, res) => {
+  const { name, email } = req.body;
+  console.log(name)
+  console.log(email)
+
+  try {
+
+    const existingUser = await User.findOne({ email });
+
+
+
+
+
+
+
+    if (!existingUser) {
+      return res.json({ success: false, error: 'User not found with the provided email' });
+    }
+
+
+    console.log(existingUser.password);
+    // const pass = await bcrypt.hash(existingUser.password, 10);
+    const pass = await bcrypt.hash(existingUser.password, 10);
+    console.log(pass);
+
+
+    // Create a Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+
+
+
+    // Define email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Know Your Password Dude',
+      html: `
+        <p>Hello ${name}</p>
+        <p>We know You Forgot your password</p>
+        <p> So here Your Password changed link <p>
+        
+ 
+      `,
+
+
+    };
+
+
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+    res.json({ success: true, message: 'Email sent successfully' });
+  }
+
+
+
+
+  catch (error) {
+    console.error('Error during registration:', error);
+
+    res.json({ success: false, error: 'Internal Server Error' });
+  }
+
+});
+
+app.post('/changepassword', async (req, res) => {
+  const { email , newPassword } = req.body;
+  console.log(email);
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ success: false, error: 'User not found with the provided email' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword ;
+    await user.save(); 
+
+
+
+    return res.json({ success: true, message: 'Password reset email sent successfully' });
+  } catch (error) {
+    
+    console.error(error);
+    return res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+});
 // ADMIN PANEL 
 
 
