@@ -205,12 +205,12 @@ app.post("/contact", async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Welcome to VHX View',
+      subject: 'Welcome to Our website',
       html: `
           <p>Hello ${name}</p>
-          <p>Thank you for registering with VHX View. We are excited to have you on board!</p>
+          <p>Thank you for registering with Us. We are excited to have you on board!</p>
           <p>Best regards,</p>
-          <p>VHX View Team</p>
+          <p>Team </p>
         `,
 
 
@@ -269,9 +269,9 @@ app.post('/newlater', async (req, res) => {
       to: email,
       subject: 'Thank You For Subscribing!',
       html: `
-        <p>Thank you for Subscrbing with VHX View. We are excited to have you on board!</p>
+        <p>Thank you for Subscrbing with  View. We are excited to have you on board!</p>
         <p>Best regards,</p>
-        <p>VHX View Team</p>
+        <p></p>
         <img src="https://i.ibb.co/qnVVcMk/digital-camera-photo-1080x675.jpg">
       `,
 
@@ -365,12 +365,11 @@ app.post('/register', async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Welcome to VHX View',
+      subject: 'Welcome ',
       html: `
       <p>Hello ${name}</p>
       <p>Thank you for registering with VHX View. We are excited to have you on board!</p>
       <p>Best regards,</p>
-      <p>VHX View Team</p>
       <img src="https://i.ibb.co/qnVVcMk/digital-camera-photo-1080x675.jpg">
     `,
 
