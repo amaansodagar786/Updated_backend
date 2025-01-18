@@ -208,7 +208,7 @@ app.post("/contact", async (req, res) => {
       subject: 'Welcome to Our website',
       html: `
           <p>Hello ${name}</p>
-          <p>Thank you for contacting with Us. We are excited to have you on board!</p>
+          <p>Thank you for connecting with Us. We are excited to have you on board!</p>
           <p>Best regards,</p>
           <p>Team </p>
         `,
